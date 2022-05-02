@@ -60,9 +60,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "16.x"
-      
+          cache: 'yarn'
+                
       - name: .NET Restore
-        run: dotnet restore ./api
+        run: |
+          dotnet nuget add source --username USERNAME --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/digitaldavidag/index.json"
+          dotnet restore ./api
 
       - name: .NET Build
         run: dotnet build ./api --configuration ${{ inputs.CONFIGURATION }} --no-restore
