@@ -36,6 +36,8 @@ on:
         required: true
       CHROMATIC_PROJECT_TOKEN:
         required: true
+      NUGET_READ_TOKEN:
+        required: true
 
 jobs:
   build_and_deploy_job:
@@ -63,7 +65,7 @@ jobs:
 
       - name: .NET Restore
         run: |
-          dotnet nuget add source --username digitaldavidag --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/digitaldavidag/index.json"
+          dotnet nuget add source --username nidoBM --password ${{ secrets.NUGET_READ_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/digitaldavidag/index.json"
           dotnet restore ./api
 
       - name: .NET Build
