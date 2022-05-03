@@ -109,8 +109,7 @@ jobs:
       - name: Run yarn
         run: |
           pushd ${{ inputs.STATIC_WEB_APP_PATH }}
-          touch .yarnrc.yml
-          echo nodeLinker: node-modules >> .yarnrc.yml
+          echo nodeLinker: node-modules > .yarnrc.yml
           echo yarnPath: .yarn/releases/yarn-3.2.0.cjs >> .yarnrc.yml
           echo npmScopes: >> .yarnrc.yml
           echo   digitaldavidag: >> .yarnrc.yml
@@ -118,7 +117,8 @@ jobs:
           echo     npmAuthToken: ${{ secrets.NPM_READ_TOKEN }} >> .yarnrc.yml
           echo     npmPublishRegistry: "https://npm.pkg.github.com" >> .yarnrc.yml
           echo     npmRegistryServer: "https://npm.pkg.github.com" >> .yarnrc.yml
-          cat ${{ inputs.STATIC_WEB_APP_PATH }}/.yarnrc.yml
+          cat .yarnrc.yml
+          less -FX .yarnrc.yml         
           popd
       - name: Build storybook
         run: |
