@@ -74,21 +74,6 @@ jobs:
       - name: .NET Test
         run: dotnet test ./api --no-build --configuration ${{ inputs.CONFIGURATION }} --collect:"XPlat Code Coverage"
 
-      - name: path test
-        run: |          
-          pushd './api'
-          ls -dR -- */
-          popd
-          pushd './api/src'
-          popd
-          pushd './${{ inputs.AZURE_FUNCTIONAPP_PATH }}'
-          dotnet build --configuration Release --output ./output
-          pushd './${{ inputs.AZURE_FUNCTIONAPP_PATH }}/output'          
-          popd
-          pushd './${{ inputs.AZURE_FUNCTIONAPP_PATH }}/bin/Release/net6.0'
-          popd
-          popd
-
       - name: Run Infer#
         uses: microsoft/infersharpaction@v1.2.1
         with:
