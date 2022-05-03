@@ -118,6 +118,7 @@ jobs:
           echo     npmAuthToken: ${{ secrets.NPM_READ_TOKEN }} >> .yarnrc.yml
           echo     npmPublishRegistry: "https://npm.pkg.github.com" >> .yarnrc.yml
           echo     npmRegistryServer: "https://npm.pkg.github.com" >> .yarnrc.yml
+          cat ${{ inputs.STATIC_WEB_APP_PATH }}/.yarnrc.yml
           popd
       - name: Build storybook
         run: |
