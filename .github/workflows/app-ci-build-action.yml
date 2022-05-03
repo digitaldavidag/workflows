@@ -73,10 +73,21 @@ jobs:
 
       - name: .NET Test
         run: dotnet test ./api --no-build --configuration ${{ inputs.CONFIGURATION }} --collect:"XPlat Code Coverage"
+
+      - name: path test
+        run: |
+          pushd './${{ inputs.AZURE_FUNCTIONAPP_PATH }}'
+          dotnet build --configuration Release --output ./output
+          pushd './${{ inputs.AZURE_FUNCTIONAPP_PATH }}/output'          
+          popd
+          pushd './${{ inputs.AZURE_FUNCTIONAPP_PATH }}/bin/Release/net6.0'
+          popd
+          popd
+
       - name: Run Infer#
         uses: microsoft/infersharpaction@v1.2.1
         with:
-          binary-path: "${{ inputs.AZURE_FUNCTIONAPP_PATH }}/bin/Release/net6.0"
+          binary-path: './${{ inputs.AZURE_FUNCTIONAPP_PATH }}/bin/Release/net6.0'
       - name: Infer# analysis results
         run: echo "${{ steps.runinfersharp.outputs.results }}"
 
@@ -84,7 +95,7 @@ jobs:
         uses: Azure/functions-action@v1
         with:
           app-name: ${{ inputs.AZURE_FUNCTIONAPP_NAME }}
-          package: "${{ inputs.AZURE_FUNCTIONAPP_PATH }}/bin/Release/net6.0"
+          package: "./${{ inputs.AZURE_FUNCTIONAPP_PATH }}/bin/Release/net6.0"
           publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
 
       - name: Deploy WebApp Release
