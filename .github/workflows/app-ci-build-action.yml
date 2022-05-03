@@ -39,6 +39,8 @@ on:
       NUGET_READ_TOKEN:
         required: true
 
+concurrency: ${{ inputs.AZURE_FUNCTIONAPP_NAME }}
+
 jobs:
   build_and_deploy_job:
     timeout-minutes: 20
