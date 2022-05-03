@@ -101,7 +101,7 @@ jobs:
           echo npmScopes: >> .yarnrc.yml
           echo   digitaldavidag: >> .yarnrc.yml
           echo     npmAlwaysAuth: true >> .yarnrc.yml
-          echo     npmAuthToken: ${{ secrets.NUGET_READ_TOKEN }} >> .yarnrc.yml
+          echo     npmAuthToken: ${{ secrets.NPM_READ_TOKEN }} >> .yarnrc.yml
           echo     npmPublishRegistry: "https://npm.pkg.github.com" >> .yarnrc.yml
           echo     npmRegistryServer: "https://npm.pkg.github.com" >> .yarnrc.yml
           popd
@@ -115,7 +115,7 @@ jobs:
           echo npmScopes: >> .yarnrc.yml
           echo   digitaldavidag: >> .yarnrc.yml
           echo     npmAlwaysAuth: true >> .yarnrc.yml
-          echo     npmAuthToken: ${{ secrets.NUGET_READ_TOKEN }} >> .yarnrc.yml
+          echo     npmAuthToken: ${{ secrets.NPM_READ_TOKEN }} >> .yarnrc.yml
           echo     npmPublishRegistry: "https://npm.pkg.github.com" >> .yarnrc.yml
           echo     npmRegistryServer: "https://npm.pkg.github.com" >> .yarnrc.yml
           popd
