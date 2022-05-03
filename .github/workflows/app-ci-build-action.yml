@@ -76,7 +76,11 @@ jobs:
 
       - name: path test
         run: |
-          ls -d -- */
+          ls -R -- */
+          pushd './api'
+          popd
+          pushd './api/src'
+          popd
           pushd './${{ inputs.AZURE_FUNCTIONAPP_PATH }}'
           dotnet build --configuration Release --output ./output
           pushd './${{ inputs.AZURE_FUNCTIONAPP_PATH }}/output'          
