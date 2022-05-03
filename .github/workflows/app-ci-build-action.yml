@@ -72,7 +72,7 @@ jobs:
         run: dotnet build ./api --configuration ${{ inputs.CONFIGURATION }} --no-restore
 
       - name: .NET Test
-        run: dotnet test ./api --no-build --collect:"XPlat Code Coverage"
+        run: dotnet test ./api --no-build --configuration ${{ inputs.CONFIGURATION }} --collect:"XPlat Code Coverage"
       - name: Run Infer#
         uses: microsoft/infersharpaction@v1.2.1
         with:
