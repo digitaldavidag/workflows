@@ -84,7 +84,7 @@ jobs:
         uses: Azure/functions-action@v1
         with:
           app-name: ${{ inputs.AZURE_FUNCTIONAPP_NAME }}
-          package: "${{ inputs.AZURE_FUNCTIONAPP_PATH }}/output"
+          package: "${{ inputs.AZURE_FUNCTIONAPP_PATH }}/bin/Release/net6.0"
           publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
 
       - name: Deploy WebApp Release
