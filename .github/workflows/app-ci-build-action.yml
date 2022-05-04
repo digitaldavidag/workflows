@@ -120,6 +120,7 @@ jobs:
           popd
 
       - uses: codecov/codecov-action@v2
+        if: github.event_name != 'release'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: unittests
@@ -128,6 +129,7 @@ jobs:
           verbose: true
 
       - name: Publish to Chromatic
+        if: github.event_name != 'release'
         uses: chromaui/action@v1
         with:
           token: ${{ github.token }}
@@ -159,7 +161,7 @@ jobs:
           output_location: "build"
           deployment_environment: ${{ inputs.STAGING_NAME }}
           skip_api_build: true
-          
+
       - name: Run Infer#
         uses: microsoft/infersharpaction@v1.2.1
         with:
