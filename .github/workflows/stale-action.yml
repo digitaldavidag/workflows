@@ -12,13 +12,13 @@ jobs:
       pull-requests: write
 
     steps:
-    - uses: actions/stale@v3
-      with:
-        repo-token: ${{ github.token }}
-        days-before-stale: 150
-        days-before-close: 150
-        days-before-pr-stale: 4
-        stale-issue-message: 'Stale'
-        stale-pr-message: 'Bitte vergiss nicht deinen PR auf dem aktuellen Stand zu halten. 🙂'
-        stale-issue-label: 'no-issue-activity'
-        stale-pr-label: 'no-pr-activity'
+      - uses: actions/stale@v3
+        with:
+          repo-token: ${{ github.token }}
+          days-before-stale: 150
+          days-before-close: 150
+          days-before-pr-stale: 7
+          stale-issue-message: "Stale"
+          stale-pr-message: "Bitte vergiss nicht deinen PR auf dem aktuellen Stand zu halten. 🙂"
+          stale-issue-label: "no-issue-activity"
+          stale-pr-label: "no-pr-activity"
