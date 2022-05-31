@@ -6,7 +6,7 @@ on:
       CONFIGURATION:
         required: true
         type: string
-      STAGING_NAME: 
+      STAGING_NAME:
         required: true
         type: string
       AZURE_FUNCTIONAPP_NAME:
@@ -18,13 +18,13 @@ on:
       STATIC_WEB_APP_PATH:
         required: true
         type: string
-      REACT_APP_ENVIRONMENT: 
+      REACT_APP_ENVIRONMENT:
         required: true
         type: string
-      REACT_APP_API_ROOT: 
+      REACT_APP_API_ROOT:
         required: true
         type: string
-      REACT_APP_CDN_ROOT: 
+      REACT_APP_CDN_ROOT:
         required: true
         type: string
     secrets:
@@ -40,6 +40,8 @@ on:
         required: true
       NPM_READ_TOKEN:
         required: true
+    env:
+      NODE_OPTIONS: --max_old_space_size=4096
 
 jobs:
   build_and_deploy_job:
@@ -171,7 +173,7 @@ jobs:
       - name: Run Infer#
         uses: microsoft/infersharpaction@v1.2.1
         with:
-          binary-path: './${{ inputs.AZURE_FUNCTIONAPP_PATH }}/bin/Release/net6.0'
+          binary-path: "./${{ inputs.AZURE_FUNCTIONAPP_PATH }}/bin/Release/net6.0"
       - name: Infer# analysis results
         run: echo "${{ steps.runinfersharp.outputs.results }}"
 
