@@ -146,7 +146,7 @@ jobs:
           action: "upload"
           app_location: ${{ inputs.STATIC_WEB_APP_PATH }}
           api_location: ""
-          output_location: "build"
+          output_location: "dist"
           production_branch: "main"
           skip_api_build: true
         env:
@@ -163,7 +163,7 @@ jobs:
           action: "upload"
           app_location: ${{ inputs.STATIC_WEB_APP_PATH }}
           api_location: ""
-          output_location: "build"
+          output_location: "dist"
           deployment_environment: ${{ inputs.STAGING_NAME }}
           skip_api_build: true
         env:
