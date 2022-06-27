@@ -89,6 +89,8 @@ jobs:
           pushd ${{ inputs.STATIC_WEB_APP_PATH }}
           yarn
           popd
+        env:
+          GH_PACKAGES_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_AUTH_TOKEN }}
 
       - name: Build storybook
         run: |
@@ -97,12 +99,15 @@ jobs:
           popd
         env:
           NODE_OPTIONS: --max_old_space_size=4096
+          GH_PACKAGES_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_AUTH_TOKEN }}
 
       - name: Run yarn test
         run: |
           pushd ${{ inputs.STATIC_WEB_APP_PATH }}
           yarn run test
           popd
+        env:
+          GH_PACKAGES_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_AUTH_TOKEN }}
 
       - uses: codecov/codecov-action@v2
         if: github.event_name != 'release'
@@ -139,6 +144,8 @@ jobs:
           VITE_API_ROOT: ${{ inputs.VITE_API_ROOT }}
           VITE_CDN_ROOT: ${{ inputs.VITE_CDN_ROOT }}
           NODE_OPTIONS: --max_old_space_size=4096
+          GH_PACKAGES_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_AUTH_TOKEN }}
+          
       - name: Deploy WebApp Build
         if: github.event_name != 'release'
         uses: Azure/static-web-apps-deploy@v1
@@ -156,6 +163,7 @@ jobs:
           VITE_API_ROOT: ${{ inputs.VITE_API_ROOT }}
           VITE_CDN_ROOT: ${{ inputs.VITE_CDN_ROOT }}
           NODE_OPTIONS: --max_old_space_size=4096
+          GH_PACKAGES_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_AUTH_TOKEN }}
 
       - name: Run Infer#
         uses: microsoft/infersharpaction@v1.2.1
