@@ -104,7 +104,7 @@ jobs:
       - name: Run yarn test
         run: |
           pushd ${{ inputs.STATIC_WEB_APP_PATH }}
-          yarn run test
+          yarn run coverage
           popd
         env:
           GH_PACKAGES_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_AUTH_TOKEN }}
@@ -145,7 +145,7 @@ jobs:
           VITE_CDN_ROOT: ${{ inputs.VITE_CDN_ROOT }}
           NODE_OPTIONS: --max_old_space_size=4096
           GH_PACKAGES_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_AUTH_TOKEN }}
-          
+
       - name: Deploy WebApp Build
         if: github.event_name != 'release'
         uses: Azure/static-web-apps-deploy@v1
