@@ -36,9 +36,7 @@ on:
         required: true
       CHROMATIC_PROJECT_TOKEN:
         required: true
-      NUGET_READ_TOKEN:
-        required: true
-      NPM_READ_TOKEN:
+      GH_PACKAGES_AUTH_TOKEN:
         required: true
 
 jobs:
@@ -64,13 +62,13 @@ jobs:
           dotnet-version: 6.0.x
 
       - name: Setup NODEJS 16.x Environment
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: "16.x"
 
       - name: .NET Restore
         run: |
-          dotnet nuget add source --username nidoBM --password ${{ secrets.NUGET_READ_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/digitaldavidag/index.json"
+          dotnet nuget add source --username nidoBM --password ${{ secrets.GH_PACKAGES_AUTH_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/digitaldavidag/index.json"
           dotnet restore ./api
 
       - name: .NET Build
@@ -86,19 +84,6 @@ jobs:
           package: "./${{ inputs.AZURE_FUNCTIONAPP_PATH }}/bin/Release/net6.0"
           publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
 
-      - name: Setup yarn
-        run: |
-          pushd ${{ inputs.STATIC_WEB_APP_PATH }}
-          echo 'nodeLinker: node-modules' > .yarnrc.yml
-          echo 'yarnPath: .yarn/releases/yarn-3.2.1.cjs' >> .yarnrc.yml
-          echo 'npmScopes:' >> .yarnrc.yml
-          echo '  digitaldavidag:' >> .yarnrc.yml
-          echo '    npmAlwaysAuth: true' >> .yarnrc.yml
-          echo '    npmAuthToken: ${{ secrets.NPM_READ_TOKEN }}' >> .yarnrc.yml
-          echo '    npmPublishRegistry: "https://npm.pkg.github.com"' >> .yarnrc.yml
-          echo '    npmRegistryServer: "https://npm.pkg.github.com"' >> .yarnrc.yml
-          cat .yarnrc.yml
-          popd
       - name: Run yarn
         run: |
           pushd ${{ inputs.STATIC_WEB_APP_PATH }}
